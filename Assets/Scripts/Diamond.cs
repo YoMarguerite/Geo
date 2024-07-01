@@ -9,6 +9,9 @@ public class Diamond : MonoBehaviour
     public float speed;
     public float distToDie;
 
+    public int value = 1;
+    public string provider = "Diamond";
+
     Rigidbody2D rigidBody;
 
     void Start()
@@ -36,8 +39,9 @@ public class Diamond : MonoBehaviour
         Projectile pr = col.gameObject.GetComponent<Projectile>();
         print(pr);
         if(pr == null){
+            int actual = PlayerPrefs.GetInt(provider);
+            PlayerPrefs.SetInt(provider, actual + value);
             Destroy(this.gameObject);
-
         }
     }
 }
