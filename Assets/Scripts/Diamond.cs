@@ -33,7 +33,11 @@ public class Diamond : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        print("oui");
-        Destroy(this.gameObject);
+        Projectile pr = col.gameObject.GetComponent<Projectile>();
+        print(pr);
+        if(pr == null){
+            Destroy(this.gameObject);
+
+        }
     }
 }

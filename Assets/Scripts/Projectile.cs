@@ -24,9 +24,20 @@ public class Projectile : MonoBehaviour
         Vector3 nextPos = transform.position + direction * step;
         rigidBody.MovePosition(nextPos);
         if(Vector3.Distance(transform.position, cible) > distToDie){
+            
+            Destroy(this.gameObject);
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        GameManager player = col.gameObject.GetComponent<GameManager>();
+        print(player);
+        if(player != null){
             anim.SetBool("appear", true);
             Time.timeScale = 0;
             Destroy(this.gameObject);
+
         }
     }
 }
