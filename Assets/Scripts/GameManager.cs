@@ -7,17 +7,22 @@ public class GameManager : MonoBehaviour
 {
     public static GameObject Instance;
     public float speed;
+    public float slideSpeed;
     public Camera myCamera;
 
     Rigidbody2D rigidBody;
+    Animator animator;
     
     void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
-        if(myCamera == null){
+        animator = GetComponent<Animator>();
+
+        if (myCamera == null){
             myCamera = Camera.main;
         }
         Instance = this.gameObject;
+        speed = speed + PlayerPrefs.GetInt("speed", 0);
     }
 
     void Update()
@@ -27,6 +32,20 @@ public class GameManager : MonoBehaviour
             Vector3 touchPos = myCamera.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y,5));
             var step =  speed * Time.deltaTime;
             rigidBody.MovePosition(Vector3.MoveTowards(transform.position, touchPos, step));
+
+            if(rigidBody.velocity.magnitude < slideSpeed)
+            {
+                animator.SetBool("walk", true);
+            }
+            else
+            {
+                animator.SetBool("slide", true);
+            }
+        }
+        else
+        {
+            animator.SetBool("walk", false);
+            animator.SetBool("slide", false);
         }
     }
 }

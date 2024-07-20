@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4697523345528708418}
   - component: {fileID: 3431762183312602357}
   - component: {fileID: -4439794842105729336}
+  - component: {fileID: -5539072982233414828}
   m_Layer: 6
   m_Name: Diamond
   m_TagString: Untagged
@@ -99,8 +100,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42fdd98515eabc246bff55c5b9c62be7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  speed: 1
   distToDie: 30
+  value: 1
+  provider: diamond
 --- !u!60 &3431762183312602357
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -151,3 +154,24 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!95 &-5539072982233414828
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2873951315947816307}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 22100000, guid: a7e021fb248d933498b47ad6e1d0c1fa, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 2
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

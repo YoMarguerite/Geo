@@ -9,26 +9,30 @@ public class Diamond : MonoBehaviour
     public float speed;
     public float distToDie;
 
-    public int value = 1;
-    public string provider = "Diamond";
+    public int value;
+    public string provider = "diamond";
+    bool collide = true;
 
     Rigidbody2D rigidBody;
+    Animator animator;
 
     void Start()
     {
+        value = value + PlayerPrefs.GetInt("value" + provider, 0);
+
         rigidBody = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+
         cible = GameManager.Instance.transform.position;
         direction = (cible - transform.position).normalized;
         direction = new Vector3(
             Random.Range(direction.x-(direction.x/2), direction.x+(direction.x/2)), 
             Random.Range(direction.y-(direction.y/2), direction.y+(direction.y/2))).normalized;
+        rigidBody.velocity = direction;
     }
 
     void Update()
     {
-        var step = speed * Time.deltaTime;
-        Vector3 nextPos = transform.position + direction * step;
-        rigidBody.MovePosition(nextPos);
         if(Vector3.Distance(transform.position, cible) > distToDie){
             Destroy(this.gameObject);
         }
@@ -36,12 +40,26 @@ public class Diamond : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        Projectile pr = col.gameObject.GetComponent<Projectile>();
-        print(pr);
-        if(pr == null){
-            int actual = PlayerPrefs.GetInt(provider);
-            PlayerPrefs.SetInt(provider, actual + value);
-            Destroy(this.gameObject);
+        if (collide)
+        {
+            Life player = col.gameObject.GetComponent<Life>();
+            if (player != null)
+            {
+                int actual = PlayerPrefs.GetInt(provider);
+                PlayerPrefs.SetInt(provider, actual + value);
+                PlayerPrefs.Save();
+                animator.SetTrigger("explode");
+            }
         }
+    }
+
+    public void StartExplode()
+    {
+        collide = false;
+    }
+
+    public void EndExplode()
+    {
+        Destroy(this.gameObject);
     }
 }
