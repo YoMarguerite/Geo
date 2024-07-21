@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Clone : MonoBehaviour
 {
+    public GameObject toClone;
     public float wait;
     void Start()
     {
@@ -14,7 +15,7 @@ public class Clone : MonoBehaviour
     {
         while(true){
             yield return new WaitForSeconds(timeToWait);
-            GameObject clone = Instantiate(this.gameObject, transform.position, Quaternion.identity);
+            GameObject clone = Instantiate(toClone, transform.position, Quaternion.identity);
             CircularMovement move = clone.GetComponent<CircularMovement>();
             move.speed = -Random.Range(move.speed - (move.speed / 2), move.speed + (move.speed / 2));
         }

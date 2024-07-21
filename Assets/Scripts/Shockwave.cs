@@ -6,7 +6,7 @@ public class Shockwave : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Projectile ops = collision.gameObject.GetComponent<Projectile>();
+        IceCollision ops = collision.gameObject.GetComponent<IceCollision>();
         if (ops != null)
         {
             Animator anim = ops.GetComponent<Animator>();

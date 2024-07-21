@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class PlayerPrefsDefine : MonoBehaviour
 {
-    static bool isSet = false;
+    public int isSet = 0;
+    public bool affectAgain = false;
 
     [System.Serializable]
     public class Preferences
@@ -19,8 +20,8 @@ public class PlayerPrefsDefine : MonoBehaviour
 
     private void Awake()
     {
-        print(Debug.isDebugBuild);
-        if (Debug.isDebugBuild && !isSet)
+        isSet = PlayerPrefs.GetInt("isSet");
+        if (isSet == 0 || affectAgain)
         {
             default_value.ForEach(value => {
                 if (value.affect) {
@@ -28,6 +29,7 @@ public class PlayerPrefsDefine : MonoBehaviour
                 }
             });
         }
-        isSet = true;
+        isSet = 1;
+        PlayerPrefs.SetInt("isSet", 1);
     }
 }

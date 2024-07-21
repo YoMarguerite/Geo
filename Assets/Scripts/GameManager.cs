@@ -25,17 +25,20 @@ public class GameManager : MonoBehaviour
         speed = speed + PlayerPrefs.GetInt("speed", 0);
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if(Input.touchCount > 0){
             Touch touch = Input.GetTouch(0);
             Vector3 touchPos = myCamera.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y,5));
             var step =  speed * Time.deltaTime;
-            rigidBody.MovePosition(Vector3.MoveTowards(transform.position, touchPos, step));
+            rigidBody.velocity = (touchPos - transform.position) * step;
 
-            if(rigidBody.velocity.magnitude < slideSpeed)
+            transform.localScale = new Vector3(Mathf.Sign(rigidBody.velocity.x), 1, 1);
+
+            animator.SetBool("walk", true);
+            if (rigidBody.velocity.magnitude < slideSpeed)
             {
-                animator.SetBool("walk", true);
+                animator.SetBool("slide", false);
             }
             else
             {
