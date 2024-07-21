@@ -28,8 +28,8 @@ public class Fish : MonoBehaviour
             Life player = col.gameObject.GetComponent<Life>();
             if (player != null)
             {
-                int actual = PlayerPrefs.GetInt(provider);
-                PlayerPrefs.SetInt(provider, actual + value);
+                int actual = PlayerPrefs.GetInt("actual" + provider);
+                PlayerPrefs.SetInt("actual" + provider, actual + value);
                 PlayerPrefs.Save();
 
                 Vector3 position = Camera.main.WorldToScreenPoint(transform.position);

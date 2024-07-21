@@ -10,6 +10,11 @@ public class GameManager : MonoBehaviour
     public float slideSpeed;
     public Camera myCamera;
 
+    public float topSpace;
+    public float bottomSpace;
+    public float leftSpace;
+    public float rightSpace;
+
     Rigidbody2D rigidBody;
     Animator animator;
     
@@ -35,6 +40,8 @@ public class GameManager : MonoBehaviour
 
             transform.localScale = new Vector3(Mathf.Sign(rigidBody.velocity.x), 1, 1);
 
+            PreventOutOffScreen();
+
             animator.SetBool("walk", true);
             if (rigidBody.velocity.magnitude < slideSpeed)
             {
@@ -47,8 +54,28 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            PreventOutOffScreen();
             animator.SetBool("walk", false);
             animator.SetBool("slide", false);
+        }
+    }
+
+    void PreventOutOffScreen()
+    {
+        Vector2 position = myCamera.WorldToScreenPoint(transform.position);
+        Rect rect = GetComponent<SpriteRenderer>().sprite.textureRect;
+
+
+        if ((position.x - leftSpace < 0 && rigidBody.velocity.x < 0) ||
+            (position.x + rightSpace > myCamera.pixelWidth && rigidBody.velocity.x > 0))
+        {
+            rigidBody.velocity = new Vector2(0, rigidBody.velocity.y);
+        }
+
+        if ((position.y - bottomSpace < 0 && rigidBody.velocity.y < 0) || 
+            (position.y + topSpace > myCamera.pixelHeight && rigidBody.velocity.y > 0))
+        {
+            rigidBody.velocity = new Vector2(rigidBody.velocity.x, 0);
         }
     }
 }

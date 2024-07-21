@@ -334,6 +334,10 @@ MonoBehaviour:
   speed: 0
   slideSpeed: 0.5
   myCamera: {fileID: 0}
+  topSpace: 0
+  bottomSpace: 70
+  leftSpace: 25
+  rightSpace: 25
 --- !u!50 &-3496898967559285978
 Rigidbody2D:
   serializedVersion: 4
