@@ -35,8 +35,8 @@ public class GameManager : MonoBehaviour
         if(Input.touchCount > 0){
             Touch touch = Input.GetTouch(0);
             Vector3 touchPos = myCamera.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y,5));
-            var step =  speed * Time.deltaTime;
-            rigidBody.velocity = (touchPos - transform.position) * step;
+            var step =  speed * Time.timeScale;
+            rigidBody.velocity = (touchPos - transform.position).normalized * step;
 
             transform.localScale = new Vector3(Mathf.Sign(rigidBody.velocity.x), 1, 1);
 

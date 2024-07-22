@@ -9,7 +9,7 @@ public class FlexibleGrid : GridLayoutGroup
     {
         Vector3[] corners = new Vector3[4];
         GetComponent<RectTransform>().GetLocalCorners(corners);
-        Vector3 corner = corners.First((corn) => corn.x != 0);
+        Vector3 corner = corners.FirstOrDefault((corn) => corn.x != 0);
 
         if (corner != null)
         {

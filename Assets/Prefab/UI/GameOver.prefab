@@ -787,6 +787,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 1195086302656841715}
+  setNow: 0
 --- !u!1 &9117053845619309329
 GameObject:
   m_ObjectHideFlags: 0
@@ -806,7 +807,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2125588157662320090
 RectTransform:
   m_ObjectHideFlags: 0
@@ -924,4 +925,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _showAdButton: {fileID: 4229732180054655946}
   _androidAdUnitId: Rewarded_Android
-  _iOSAdUnitId: Rewarded_iOS

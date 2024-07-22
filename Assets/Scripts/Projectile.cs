@@ -22,7 +22,7 @@ public class Projectile : MonoBehaviour
         direction = new Vector3(
             Random.Range(direction.x - variance, direction.x + variance),
             Random.Range(direction.y - variance, direction.y + variance)).normalized;
-        rigidBody.velocity = direction * speed;
+        rigidBody.velocity = direction * speed * Time.timeScale;
 
         float rad = Mathf.Atan2(direction.y, direction.x);
         float angle = rad * (180/Mathf.PI);

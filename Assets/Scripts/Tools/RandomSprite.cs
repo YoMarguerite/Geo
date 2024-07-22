@@ -17,11 +17,8 @@ public class RandomSprite : MonoBehaviour
             return;
         }
 
-        print(sprites.Length);
         int index = Random.Range(0, sprites.Length);
-        print(index);
         Sprite spr = sprites[index];
-        print(spr.name);
         rend.sprite = sprites[Random.Range(0, sprites.Length)];
     }
 }
