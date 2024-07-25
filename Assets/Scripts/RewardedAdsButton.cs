@@ -8,6 +8,7 @@ public class RewardedAdsButton : MonoBehaviour, IUnityAdsLoadListener, IUnityAds
     [SerializeField] string _androidAdUnitId = "Rewarded_Android";
     //[SerializeField] string _iOSAdUnitId = "Rewarded_iOS";
     string _adUnitId = null; // This will remain null for unsupported platforms
+    bool isLoaded = false;
 
     public static RewardedAdsButton Instance;
 
@@ -23,8 +24,6 @@ public class RewardedAdsButton : MonoBehaviour, IUnityAdsLoadListener, IUnityAds
         //#endif
         _adUnitId = _androidAdUnitId;
 
-        // Disable the button until the ad is ready to show:
-        _showAdButton.interactable = false;
     }
 
     void Start()
@@ -47,20 +46,18 @@ public class RewardedAdsButton : MonoBehaviour, IUnityAdsLoadListener, IUnityAds
 
         if (adUnitId.Equals(_adUnitId))
         {
-            // Configure the button to call the ShowAd() method when clicked:
-            _showAdButton.onClick.AddListener(ShowAd);
-            // Enable the button for users to click:
-            _showAdButton.interactable = true;
+            isLoaded = true;
         }
     }
 
     // Implement a method to execute when the user clicks the button:
     public void ShowAd()
     {
-        // Disable the button:
-        _showAdButton.interactable = false;
-        // Then show the ad:
-        Advertisement.Show(_adUnitId, this);
+        if (isLoaded)
+        {
+            isLoaded = false;
+            Advertisement.Show(_adUnitId, this);
+        }
     }
 
     // Implement the Show Listener's OnUnityAdsShowComplete callback method to determine if the user gets a reward:
@@ -69,7 +66,9 @@ public class RewardedAdsButton : MonoBehaviour, IUnityAdsLoadListener, IUnityAds
         if (adUnitId.Equals(_adUnitId) && showCompletionState.Equals(UnityAdsShowCompletionState.COMPLETED))
         {
             Debug.Log("Unity Ads Rewarded Ad Completed");
-            
+            int value = PlayerPrefs.GetInt("actualfish");
+            value = value * PlayerPrefs.GetInt("admultiplicator");
+            PlayerPrefs.SetInt("actualfish", value);
         }
     }
 
@@ -88,10 +87,4 @@ public class RewardedAdsButton : MonoBehaviour, IUnityAdsLoadListener, IUnityAds
 
     public void OnUnityAdsShowStart(string adUnitId) { }
     public void OnUnityAdsShowClick(string adUnitId) { }
-
-    void OnDestroy()
-    {
-        // Clean up the button listeners:
-        _showAdButton.onClick.RemoveAllListeners();
-    }
 }

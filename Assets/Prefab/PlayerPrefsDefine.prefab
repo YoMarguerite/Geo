@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isSet: 0
-  affectAgain: 0
+  affectAgain: 1
   default_value:
   - name: valuefish
     value: 1
@@ -81,5 +81,11 @@ MonoBehaviour:
     value: 0
     affect: 1
   - name: costshockwave
+    value: 1
+    affect: 1
+  - name: admultiplicator
+    value: 2
+    affect: 1
+  - name: costadmultiplicator
     value: 1
     affect: 1
