@@ -13,6 +13,9 @@ public class Fish : MonoBehaviour
 
     Animator animator;
 
+    [SerializeField]
+    AudioSource Source;
+
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -31,6 +34,7 @@ public class Fish : MonoBehaviour
                 int actual = PlayerPrefs.GetInt("actual" + provider);
                 PlayerPrefs.SetInt("actual" + provider, actual + value);
                 PlayerPrefs.Save();
+                Source.Play();
 
                 Vector3 position = Camera.main.WorldToScreenPoint(transform.position);
                 text.transform.position = position;

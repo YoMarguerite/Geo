@@ -1,12 +1,25 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.Analytics;
 
 public class Life : MonoBehaviour
 {
     int life;
     public int lifeMax;
     public Animator anim;
-    // Use this for initialization
+
+    [SerializeField]
+    AudioClip HealAudio;
+
+    [SerializeField]
+    AudioClip DamageAudio;
+
+    [SerializeField]
+    AudioClip GameOver;
+
+    [SerializeField]
+    AudioSource Source;
+
     void Start()
     {
         lifeMax = lifeMax + PlayerPrefs.GetInt("lifemax", 0);
@@ -21,6 +34,8 @@ public class Life : MonoBehaviour
         life = life > lifeMax ? lifeMax : life;
         PlayerPrefs.SetInt("life", life);
         PlayerPrefs.Save();
+        Source.clip = HealAudio;
+        Source.Play();
     }
 
     public void Damage(int value)
@@ -28,9 +43,14 @@ public class Life : MonoBehaviour
         life -= value;
         PlayerPrefs.SetInt("life", life);
         PlayerPrefs.Save();
-        if(life < 1){
+
+        Source.clip = DamageAudio;
+
+        if (life < 1){
+            Source.clip = GameOver;
             anim.SetBool("appear", true);
             Time.timeScale = 0;
         }
+        Source.Play();
     }
 }
